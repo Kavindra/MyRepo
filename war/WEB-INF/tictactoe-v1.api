@@ -1,0 +1,171 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://test-tictactoe-java.appspot.com/_ah/api",
+  "name" : "tictactoe",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://test-tictactoe-java.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "tictactoe.board.getmove" : {
+      "path" : "board",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "com.google.devrel.samples.ttt.spi.BoardV1.getmove",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tictactoe.scores.insert" : {
+      "path" : "score",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ "702791274273-oiq0id2ve6lvd9dcto5muotmgn5gmldf.apps.googleusercontent.com" ],
+      "clientIds" : [ "702791274273-oiq0id2ve6lvd9dcto5muotmgn5gmldf.apps.googleusercontent.com", "replace this with your Android client ID", "replace this with your iOS client ID" ],
+      "rosyMethod" : "com.google.devrel.samples.ttt.spi.ScoresV1.insert",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tictactoe.scores.list" : {
+      "path" : "score",
+      "httpMethod" : "GET",
+      "scopes" : [ ],
+      "audiences" : [ "702791274273-oiq0id2ve6lvd9dcto5muotmgn5gmldf.apps.googleusercontent.com" ],
+      "clientIds" : [ "702791274273-oiq0id2ve6lvd9dcto5muotmgn5gmldf.apps.googleusercontent.com", "replace this with your Android client ID", "replace this with your iOS client ID" ],
+      "rosyMethod" : "com.google.devrel.samples.ttt.spi.ScoresV1.list",
+      "request" : {
+        "parameters" : {
+          "limit" : {
+            "type" : "string",
+            "required" : false
+          },
+          "order" : {
+            "type" : "string",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Board" : {
+        "id" : "Board",
+        "type" : "object",
+        "properties" : {
+          "state" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Score" : {
+        "id" : "Score",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "player" : {
+            "$ref" : "User"
+          },
+          "outcome" : {
+            "type" : "string"
+          },
+          "played" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "User" : {
+        "id" : "User",
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "authDomain" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "string"
+          },
+          "federatedIdentity" : {
+            "type" : "string"
+          },
+          "nickname" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ScoreCollection" : {
+        "id" : "ScoreCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Score"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.google.devrel.samples.ttt.spi.BoardV1.getmove" : {
+        "request" : {
+          "$ref" : "Board"
+        },
+        "response" : {
+          "$ref" : "Board"
+        }
+      },
+      "com.google.devrel.samples.ttt.spi.ScoresV1.insert" : {
+        "request" : {
+          "$ref" : "Score"
+        },
+        "response" : {
+          "$ref" : "Score"
+        }
+      },
+      "com.google.devrel.samples.ttt.spi.ScoresV1.list" : {
+        "response" : {
+          "$ref" : "ScoreCollection"
+        }
+      }
+    }
+  }
+}
